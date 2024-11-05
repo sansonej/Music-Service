@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="music.css">
+    <title> Looney Tunes 🎵 </title>
+    <script src="music.js"></script>
+</head>
+<h1> Looney Tunes 🎵 </h1>
+<nav>
+    <ul>
+        <li> <a href="music.html"> Home Page </a></li>
+        <li> <a href="generateSong.html"> Search Song </a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <!-- User Profile Form -->
+    <form id="profileForm">
+        <h2>Create Your Profile</h2>
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <!-- Submit Button with Tooltip -->
+        <div class="search">
+            <button class="search-btn" type="submit">Save Profile</button>
+            <div class="tooltip">Warning: Before you submit, make sure all information is correct!!</div>
+        </div>
+    </form>
+
+    <!-- Profile Display Section -->
+    <div id="profileDisplay" class="profile" style="display: none;">
+        <h2>Profile Information:</h2>
+        <p><strong>Name:</strong> <span id="displayName"></span></p>
+        <p><strong>Email:</strong> <span id="displayEmail"></span></p>
+    </div>
+
+    <div id="confirmationMessage" class="confirmation-message" style="display: none;">
+        <h2>Profile Submitted!</h2>
+        <p>Don't worry we will securely store your email and won't spam you!</p> <!--IH#2-->
+    </div>
+
+    <script>
+        // Handle form submission
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Collect form data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            // Update the profile display
+            document.getElementById('displayName').textContent = name;
+            document.getElementById('displayEmail').textContent = email;
+
+            // Hide the form and show the confirmation message
+            document.getElementById('profileForm').style.display = 'none';
+            document.getElementById('profileDisplay').style.display = 'none';
+            document.getElementById('confirmationMessage').style.display = 'block';
+        });
+    </script>
+</div>
+</body>
+</html>

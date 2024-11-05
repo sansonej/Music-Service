@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="music.css">
+    <title> Looney Tunes 🎵  </title>
+    <script src ="music.js"></script>
+</head>
+<h1> Looney Tunes 🎵 </h1>
+<nav>
+    <ul>
+        <li> <a href = "generateSong.html"> Search Library </a></li>
+        <li> <a href = "playlist.html"> Profile </a></li>
+</nav>
+<body>
+    <h2> Welcome to Looney Tunes! </h2>
+    <p> An app for all your music needs</p>
+
+    <div class="popup">
+        <span class="popuptext" id="myPopup">
+            <!--IH#6-->
+            First fill out the survey to the left, then navigate to the Search Library Tab at the top to start searching for your favorite artists!
+        </span>
+    </div>
+
+    <script src="popup.js"></script>
+
+    <h3> Survey! </h3>
+
+    <p>What features do you use the most on music service apps?</p>
+    <form>
+        <input type="checkbox" id="search" name="fav_feature" value="Search">
+        <label for="search">Search Library</label><br>
+        <input type="checkbox" id="save" name="fav_feature" value="Save">
+        <label for="save">Save Songs</label><br>
+        <input type="checkbox" id="make_playlist" name="fav_feature" value="Playlists">
+        <label for="make_playlist">Make Playlists</label>
+        <!-- IH#5: Make Undo/Redo -->
+        <input class="submit" type="submit" value="Submit">
+        <input type="reset" value="Reset">
+    </form>
+<footer>
+</footer>
+</body>
+</html>

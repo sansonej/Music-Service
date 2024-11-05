@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="music.css">
+    <title>Looney Tunes 🎵</title>
+    <script src="music.js"></script>
+</head>
+<h1>Looney Tunes 🎵</h1>
+<body>
+    <nav>
+        <ul>
+            <li><a href="music.html">Home Page</a></li>
+            <li><a href="playlist.html">Profile</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section>
+            <h1>Search Songs, Artists, Albums, & More!</h1>
+
+            <!-- Search Section -->
+            <div class="search">
+                <!-- Search Category Dropdown -->
+                <select id="searchCategory">
+                    <option value="all">All</option>
+                    <option value="song">Song</option>
+                    <option value="artist">Artist</option>
+                    <option value="album">Album</option>
+                    <option value="genre">Genre</option>
+                </select>
+                
+                <!-- Search Query Input -->
+                <input type="text" id="searchQuery" placeholder="Enter search term..." />
+
+                <!-- Search Button -->
+                <button class="search-btn" onclick="search()">Search</button>
+                <!-- Tooltip -->
+                 <!--IH#1-->
+                <div class="tooltip">To quickly find music information enter an input and then click search!</div>
+            </div>
+
+            <div id="results"></div>
+        </section>
+    </main>
+
+    <script>
+        async function search() {
+            const query = document.getElementById('searchQuery').value;
+            const category = document.getElementById('searchCategory').value; // Get selected category
+            
+            // Validate that the user entered a query
+            if (!query) {
+                alert('Please enter a search query');
+                return;
+            }
+
+            // Prepare the API request URL with the query and selected category
+            let url = `/search?q=${query}`;
+            if (category !== 'all') {
+                url += `&category=${category}`;
+            }
+
+            // Make the API request
+            const response = await fetch(url);
+            const data = await response.json();
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = ''; // Clear previous results
+
+            // Handle and display results based on the selected category
+            data.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('result-item');
+                //IH#7 try different appraoches
+                if (category === 'song' || category === 'all') {
+                    itemDiv.innerHTML = `
+                        <strong>${item.name}</strong> by ${item.artists.map(artist => artist.name).join(', ')}
+                        <button class="expand-btn" onclick="toggleDetails(this)">Get More Details</button>
+                        <div class="expandable-details" style="display: none;">
+                            <p><strong>Release Date:</strong> ${item.album.release_date}</p>
+                            <p><strong>Album:</strong> ${item.album.name}</p>
+                        </div>
+                    `;
+                } else if (category === 'artist' || category === 'all') {
+                    itemDiv.innerHTML = `
+                        <strong>${item.name}</strong>
+                    `;
+                } else if (category === 'album' || category === 'all') {
+                    itemDiv.innerHTML = `
+                        <strong>${item.name}</strong> by ${item.artists.map(artist => artist.name).join(', ')}
+                    `;
+                } else if (category === 'genre' || category === 'all') {
+                    itemDiv.innerHTML = `
+                        <strong>${item.name}</strong>
+                    `;
+                }
+
+                resultsDiv.appendChild(itemDiv);
+            });
+        }
+
+        // Function to toggle the visibility of the expandable section
+        function toggleDetails(button) {
+            const details = button.nextElementSibling;
+            const isVisible = details.style.display === 'block';
+            details.style.display = isVisible ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>
